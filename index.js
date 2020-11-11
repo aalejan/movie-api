@@ -9,8 +9,18 @@ app.get('/movies', (req, res) => {
 
 app.get('/movies/:title', (req, res) => {
     const {title} = req.params
-    const movieFound = movies.filter((movies) => movies.title === title)
+    const movieFound = movies.filter((movies) =>{
+        return movies.title.toLowerCase().includes(title.toLowerCase())
+    } )
     return res.send(movieFound)
+})
+
+app.get('/movies/:director', (req, res) => {
+    const {director} = req.params
+    const directorFound = movies.filter((movie) => {
+        return movie.directors.toLowerCase().includes(director.toLowerCase()) 
+    })
+    return res.send(directorFound)
 })
 
 app.all('*', (req, res) => {
